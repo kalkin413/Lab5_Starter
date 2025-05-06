@@ -10,12 +10,16 @@ function init() {
   const img = document.querySelector("img");
   
   // populate list of voices
-  const voices = synth.getVoices();
-  for (let i = 0; i < voices.length; i++) {
-    const curr = document.createElement("option");
-    curr.textContent = voices[i].name;
-    dropDown.appendChild(curr);
-  }
+  let voices = synth.getVoices();
+
+  synth.onvoiceschanged = function() {
+    voices = synth.getVoices();
+    for (let i = 0; i < voices.length; i++) {
+      const curr = document.createElement("option");
+      curr.textContent = voices[i].name;
+      dropDown.appendChild(curr);
+    }
+  };
 
   const button = document.querySelector("button");
   button.addEventListener('click', function() {
